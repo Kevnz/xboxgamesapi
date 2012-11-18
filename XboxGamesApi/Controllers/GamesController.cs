@@ -58,9 +58,9 @@ namespace XboxGamesApi.Controllers
 
         return new { success = true, totalPages = totalPages, results = results };
       }
-      catch
+      catch (Exception ex)
       {
-        return new { success = false };
+        return new { success = false, error = ex.ToString() };
       }
     }
 
