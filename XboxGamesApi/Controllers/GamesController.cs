@@ -14,8 +14,6 @@ namespace XboxGamesApi.Controllers
     public GamesController(XboxGamesEntities ctx)
     {
       _ctx = ctx;
-      _ctx.Configuration.ProxyCreationEnabled = false;
-      _ctx.Configuration.LazyLoadingEnabled = false;
     }
 
     const int PAGE_SIZE = 25;
