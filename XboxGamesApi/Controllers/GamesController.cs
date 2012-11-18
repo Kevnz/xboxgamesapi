@@ -28,8 +28,6 @@ namespace XboxGamesApi.Controllers
                           where genre == "" ? true : g.Genre.ToLower() == genre.ToLower()
                           select g).Count();
 
-        if (totalCount == 0) return new { success = true, totalPages = 0 };
-
         var totalPages = Math.Ceiling((double)totalCount / PAGE_SIZE);
 
         var qry = from g in _games
@@ -43,7 +41,7 @@ namespace XboxGamesApi.Controllers
 
         if (data.Count == 0)
         {
-          return new { success = false, totalPages = totalPages };
+          return new { success = true, count = totalCount, totalPages = totalPages, resultSize = 0 };
         }
 
         var results = data.Select(g =>
@@ -58,11 +56,11 @@ namespace XboxGamesApi.Controllers
                               rating = g.GameRating.Name
                             }).ToList();
 
-        return new { success = true, totalPages = totalPages, results = results };
+        return new { success = true, count = totalCount, totalPages = totalPages, resultSize = results.Count, results = results };
       }
       catch (Exception ex)
       {
-        return new { success = false, error = ex.ToString() };
+        return new { success = false, error = ex.Message };
       }
     }
 
