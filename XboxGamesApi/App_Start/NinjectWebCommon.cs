@@ -10,6 +10,7 @@ namespace XboxGamesApi.App_Start
   using Ninject;
   using Ninject.Web.Common;
   using Ninject.Web.Mvc;
+  using VideoGames;
 
   public static class NinjectWebCommon
   {
@@ -42,14 +43,7 @@ namespace XboxGamesApi.App_Start
       var kernel = new StandardKernel();
       kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
       kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-      kernel.Bind<XboxGamesEntities>().ToMethod<XboxGamesEntities>((ictx) =>
-        {
-          var ctx = new XboxGamesEntities();
-          ctx.Configuration.ProxyCreationEnabled = false;
-          ctx.Configuration.LazyLoadingEnabled = false;
-
-          return ctx;
-        }).InRequestScope();
+      kernel.Bind<GameList>().To<GameList>().InRequestScope();
       RegisterServices(kernel);
 
       GlobalConfiguration.Configuration.DependencyResolver = new NinjectResolver(kernel);

@@ -4,32 +4,37 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using VideoGames;
 
 namespace XboxGamesApi.Controllers
 {
   public class GamesController : ApiController
   {
-    XboxGamesEntities _ctx;
+    GameList _games;
 
-    public GamesController(XboxGamesEntities ctx)
+    public GamesController(GameList games)
     {
-      _ctx = ctx;
+      _games = games;
     }
 
     const int PAGE_SIZE = 25;
 
     // GET api/values
-    public object Get(int page = 1)
+    public object Get(int page = 1, string genre = "")
     {
       try
       {
-        var totalCount = (from g in _ctx.Games
+        var totalCount = (from g in _games
+                          where genre == "" ? true : g.Genre.ToLower() == genre.ToLower()
                           select g).Count();
+
+        if (totalCount == 0) return new { success = true, totalPages = 0 };
 
         var totalPages = Math.Ceiling((double)totalCount / PAGE_SIZE);
 
-        var qry = from g in _ctx.Games.Include("Genre").Include("Rating")
-                  orderby g.Name
+        var qry = from g in _games
+                  orderby g.ReleaseDate descending
+                  where genre == "" ? true : g.Genre.ToLower() == genre.ToLower()
                   select g;
 
         var data = qry.Skip((page - 1) * PAGE_SIZE)
@@ -44,14 +49,13 @@ namespace XboxGamesApi.Controllers
         var results = data.Select(g =>
                             new
                             {
-                              id = g.GameID,
                               name = g.Name,
-                              genre = g.Genre == null ? "Unknown" : g.Genre.Name,
-                              releaseDate = g.ReleaseDate.HasValue ? g.ReleaseDate.GetValueOrDefault().Date.ToShortDateString()  : "",
+                              genre = g.Genre,
+                              releaseDate = g.ReleaseDate.Date.ToShortDateString(),
                               price = g.Price,
                               imageUrl = g.ImageUrl,
                               description = g.Description,
-                              rating = g.Rating == null ? "Unknown" : g.Rating.Name
+                              rating = g.GameRating.Name
                             }).ToList();
 
         return new { success = true, totalPages = totalPages, results = results };

@@ -134,6 +134,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Data\Games.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectResolver.cs" />
@@ -143,34 +144,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\GamesController.cs" />
-    <Compile Include="Game.cs">
-      <DependentUpon>XboxGamesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Genre.cs">
-      <DependentUpon>XboxGamesModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rating.cs">
-      <DependentUpon>XboxGamesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="XboxGamesModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>XboxGamesModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="XboxGamesModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>XboxGamesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="XboxGamesModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>XboxGamesModel.edmx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -277,26 +254,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <EntityDeploy Include="XboxGamesModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>XboxGamesModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="XboxGamesModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>XboxGamesModel.edmx</DependentUpon>
-      <LastGenOutput>XboxGamesModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="XboxGamesModel.edmx.diagram">
-      <DependentUpon>XboxGamesModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="XboxGamesModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>XboxGamesModel.edmx</DependentUpon>
-      <LastGenOutput>XboxGamesModel.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
