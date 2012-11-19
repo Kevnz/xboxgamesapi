@@ -56,7 +56,40 @@
   };
 
 
+  var router = $.sammy("#main", function () {
+
+    var routes = [
+      {
+        path: "#/",
+        name: "Games",
+        view: "#home-page"
+      },
+      {
+        path: "#/about",
+        name: "About",
+        view: "#about-page"
+      },
+    ];
+
+    var me = this;
+
+    function addRoute(route) {
+      $(".view").effect("blind", 250, function () {
+        $(route.view).show("blind", 250);
+      });
+      $(".nav li").removeClass("active");
+      $(".nav li a:contains(" + route.name + ")").parent().addClass("active");
+    }
+
+    $.each(routes, function (i, item) {
+      me.get(item.path, function (ctx) {
+        addRoute(item);
+      });
+    });
+  });
+
   $(document).ready(function () {
+    router.run("#/");
     main.initialize();
   });
 

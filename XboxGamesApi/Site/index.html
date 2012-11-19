@@ -35,60 +35,90 @@
           <ul class="nav">
             <li class="active"><a href="#/">Games</a></li>
             <li><a href="#/about">About</a></li>
-            <li><a href="#/contact">Contact</a></li>
           </ul>
         </div>
         <!--/.nav-collapse -->
       </div>
     </div>
   </div>
-  <div class="container main-page">
-    
-    <div class="well">
-      <h3>You can get started by browsing for your favorite Xbox games now!</h3>
-      <div class="dropdown">
-        <a class="dropdown-toggle btn btn-primary" data-toggle="dropdown" href="#">Pick Genre...<b class="caret"></b></a>
-        <ul class="dropdown-menu genre-menu" role="menu" aria-labelledby="dropdownMenu" data-bind="foreach: genres">
-          <li><a tabindex="-1" class="genre-menu-item" data-bind="{text: $data, attr: { href: $data }}"></a></li>
+  <div class="container main-page" id="main">
+    <div class="view hide" id="home-page">
+      <div class="well">
+        <h3>You can get started by browsing for your favorite Xbox games now!</h3>
+        <div class="dropdown">
+          <a class="dropdown-toggle btn btn-primary" data-toggle="dropdown" href="#">Pick Genre...<b class="caret"></b></a>
+          <ul class="dropdown-menu genre-menu" role="menu" aria-labelledby="dropdownMenu" data-bind="foreach: genres">
+            <li><a tabindex="-1" class="genre-menu-item" data-bind="{text: $data, attr: { href: $data }}"></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="alert alert-error hide" id="errorAlert">
+        <div class="close"><i class="icon icon-close"></i></div>
+        <div>An error occurred: <i><span id="errorText"></span></i></div>
+      </div>
+      <div id="wait-cursor" data-bind="visible: isBusy">
+        <div class="progress progress-striped active">
+          <div class="bar" style="width: 100%;"></div>
+        </div>
+      </div>
+      <!-- Results -->
+      <div data-bind="visible: genre().length > 0">
+        <div class="pagination">
+          <ul data-bind="visible: totalPages() > 1" class="pull-right">
+            <li data-bind="css: { disabled: currentPage() == 1 }"><a href="first" id="firstButton">&lt;&lt;</a></li>
+            <li data-bind="css: { disabled: currentPage() == 1 }"><a href="prev" id="prevButton">&lt;</a></li>
+            <li data-bind="css: { disabled: currentPage() >= totalPages() }"><a id="nextButton" href="next">&gt;</a></li>
+            <li data-bind="css: { disabled: currentPage() >= totalPages() }"><a href="last" id="lastButton">&gt;&gt;</a></li>
+          </ul>
+          <h2 data-bind="text: genre"></h2>
+        </div>
+        <ul class="thumbnails" data-bind="foreach: games">
+          <li class="span4">
+            <div class="thumbnail video-game">
+              <div class="pull-left">
+                <img data-bind="attr: {src: imageUrl}" alt="xbox game" class="img-polaroid" />
+                <a data-bind="attr: { href: 'http://www.amazon.com/gp/search?ie=UTF8&camp=1789&creative=9325&index=videogames&linkCode=ur2&tag=comguru&keywords=' + encodedName }" target="_blank" class="btn btn-success"><i class="icon icon-white icon-plus"></i>Buy</a>
+              </div>
+              <div class="game-info">
+                <h4 data-bind="text: name"></h4>
+                <div>Price: <strong><span data-bind="text: price"></span></strong></div>
+                <div>Release Date: <strong><span data-bind="text: releaseDate"></span></strong></div>
+                <p class="visible-phone" data-bind="text: description"></p>
+              </div>
+            </div>
+          </li>
         </ul>
       </div>
     </div>
-    <div class="alert alert-error hide" id="errorAlert">
-      <div class="close"><i class="icon icon-close"></i></div>
-      <div>An error occurred: <i><span id="errorText"></span></i></div>
-    </div>
-    <div id="wait-cursor" data-bind="visible: isBusy">
-      <div class="progress progress-striped active">
-        <div class="bar" style="width: 100%;"></div>
-      </div>
-    </div>
-    <!-- Results -->
-    <div data-bind="visible: genre().length > 0">
-      <div class="pagination">
-        <ul data-bind="visible: totalPages() > 1" class="pull-right">
-          <li data-bind="css: { disabled: currentPage() == 1 }"><a href="first" id="firstButton">&lt;&lt;</a></li>
-          <li data-bind="css: { disabled: currentPage() == 1 }"><a href="prev" id="prevButton">&lt;</a></li>
-          <li data-bind="css: { disabled: currentPage() >= totalPages() }"><a id="nextButton" href="next">&gt;</a></li>
-          <li data-bind="css: { disabled: currentPage() >= totalPages() }"><a href="last" id="lastButton">&gt;&gt;</a></li>
+    <div class="view hide" id="about-page">
+      <div id="well">
+        <h3>About Xbox Game Browser</h3>
+        <p>
+          This application was built using client-side JavaScript 
+          and a JSON-powered back-end. This site is an example of 
+          how to build and application that can be easily ported 
+          to the iPhone, iPad, Android, Windows Phone 8 and 
+          Windows 8 using PhoneGap and Adobe PhoneGap Build.
+        </p>
+        <p>This site uses a variety of client-side libraries including:</p>
+        <ul>
+          <li><a href="http://jquery.org">jQuery</a></li>
+          <li><a href="http://twitter.github.com/bootstrap/index.html">Twitter Bootstrap</a></li>
+          <li><a href="http://knockoutjs.com/index.html">KnockoutJS</a></li>
+          <li><a href="http://amplifyjs.com/">AmplifyJS</a></li>
+          <li><a href="http://sammyjs.org/">Sammy.js</a></li>
         </ul>
-        <h2 data-bind="text: genre"></h2>
+        <p>In addition, the site was initially created using 
+          <a href="http://www.initializr.com/">Initializr</a> to produce a 
+          <a href="http://html5boilerplate.com/">HTML5 Boilerplate</a>  
+          project with <a href="http://twitter.github.com/bootstrap/index.html">Twitter Bootstrap</a> 
+          and other features. </p>
+        <p>The template was provided by 
+          <a href="http://bootswatch.com/">BootSwatch</a> and icons 
+          are from the <a href="http://twitter.github.com/bootstrap/index.html">Twitter 
+          Bootstrap</a> project but originally supplied by 
+          <a href="http://glyphicons.com/" target="_blank">GlyphIcons</a>.</p>
       </div>
-      <ul class="thumbnails" data-bind="foreach: games">
-        <li class="span4">
-          <div class="thumbnail video-game">
-            <div class="pull-left">
-              <img data-bind="attr: {src: imageUrl}" alt="xbox game" class="img-polaroid"/>
-              <a data-bind="attr: { href: 'http://www.amazon.com/gp/search?ie=UTF8&camp=1789&creative=9325&index=videogames&linkCode=ur2&tag=comguru&keywords=' + encodedName }" target="_blank" class="btn btn-success"><i class="icon icon-white icon-plus"></i> Buy</a>
-            </div>
-            <div class="game-info">
-              <h4 data-bind="text: name"></h4>
-              <div>Price: <strong><span data-bind="text: price"></span></strong></div>
-              <div>Release Date: <strong><span data-bind="text: releaseDate"></span></strong></div>
-              <p class="visible-phone" data-bind="text: description"></p>
-            </div>
-          </div>
-        </li>
-      </ul>
     </div>
     <hr>
     <footer>
