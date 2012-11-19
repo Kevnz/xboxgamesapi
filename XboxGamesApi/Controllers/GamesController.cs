@@ -17,23 +17,24 @@ namespace XboxGamesApi.Controllers
       _games = games;
     }
 
-    const int PAGE_SIZE = 25;
+    const int PAGE_SIZE = 12;
 
     // GET api/values
     public object Get(int page = 1, string genre = "")
     {
       try
       {
-        var totalCount = (from g in _games
-                          where genre == "" ? true : g.Genre.ToLower() == genre.ToLower()
-                          select g).Count();
+        Func<Game, bool> filter = g =>
+        {
+          return (genre == "" ? true : g.Genre.ToLower() == genre.ToLower()) && g.Price > 0 && g.Price < 100;
+        };
+
+        var totalCount = _games.Where(filter).Count();
 
         var totalPages = Math.Ceiling((double)totalCount / PAGE_SIZE);
 
-        var qry = from g in _games
-                  orderby g.ReleaseDate descending
-                  where genre == "" ? true : g.Genre.ToLower() == genre.ToLower()
-                  select g;
+        var qry = _games.Where(filter)
+                        .OrderByDescending(g => g.ReleaseDate);
 
         var data = qry.Skip((page - 1) * PAGE_SIZE)
                       .Take(PAGE_SIZE)

@@ -10,7 +10,7 @@ namespace XboxGamesApi.Controllers
   {
     public ActionResult Index()
     {
-      return View();
+      return Redirect("/site");
     }
   }
 }
