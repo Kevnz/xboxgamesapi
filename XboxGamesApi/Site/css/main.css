@@ -54,3 +54,12 @@
     z-index: 1002;
     overflow: auto;
   }
+
+footer
+{
+  height: 30px;
+}
+
+footer h5{
+  margin-top: 3px;
+}
