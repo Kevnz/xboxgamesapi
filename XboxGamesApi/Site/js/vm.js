@@ -7,6 +7,7 @@
   vm.isBusy = ko.observable(false);
   vm.currentPage = ko.observable(1);
   vm.totalPages = ko.observable(0);
+  vm.isPhoneGap = ko.observable(false);
 
   // Functions
   vm.loadGenres = function () {
