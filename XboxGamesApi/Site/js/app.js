@@ -1,14 +1,12 @@
 (function (app, $) {
 
-  app.rootUrl = function () {
-    return "/";
-  };
+  app.rootUrl = "/";
 
   app.relativeUrl = function (url) {
     if (url.charAt(0) == "/") {
-      return app.rootUrl() + url.slice(1);
+      return app.rootUrl + url.slice(1);
     } else {
-      return app.rootUrl() + url;
+      return app.rootUrl + url;
     }
   };
 

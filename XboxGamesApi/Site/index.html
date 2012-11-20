@@ -21,7 +21,6 @@
   <![endif]-->
 </head>
 <body>
-  <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
@@ -53,7 +52,7 @@
         </div>
       </div>
       <div class="alert alert-error hide" id="errorAlert">
-        <div class="close"><i class="icon icon-close"></i></div>
+        <button type="button" class="close" data-dismiss="alert">×</button>
         <div>An error occurred: <i><span id="errorText"></span></i></div>
       </div>
       <div id="wait-cursor" data-bind="visible: isBusy">
@@ -93,8 +92,8 @@
     <div class="view hide" id="about-page">
       <div class="hero-unit">
         <h2>About Xbox Game Browser</h2>
-        <a href="http://wilderminds.com" class="pull-right"><img src="http://wilderminds.com/images/logo_300x94_bk_trans.png" alt="Wilder Minds LLC" /></a>
-        <p class="lead">An example application built by Shawn Wildermuth of <a href="http://wilderminds.com">Wilder Minds LLC</a></p>
+        <a href="http://wilderminds.com" class="pull-right" target="_blank"><img src="http://wilderminds.com/images/logo_150_bk_trans.png" alt="Wilder Minds LLC" /></a>
+        <p class="lead">An example application built by Shawn Wildermuth of <a href="http://wilderminds.com"  target="_blank">Wilder Minds LLC</a></p>
         <p>
           This application was built using client-side JavaScript 
           and a JSON-powered back-end. This site is an example of 
@@ -131,7 +130,7 @@
   <footer class="navbar navbar-inverse navbar-fixed-bottom">
     <div class="navbar-inner">
       <div class="container">
-        <h5>Xbox Game Browser - <a href="http://wilderminds.com">Wilder Minds LLC</a></h5>
+        <h5>Xbox Game Browser - <a href="http://wilderminds.com"  target="_blank">Wilder Minds LLC</a></h5>
       </div>
     </div>
   </footer>
