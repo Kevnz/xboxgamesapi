@@ -1,16 +1,51 @@
 (function (main, $) {
 
   main.initialize = function () {
-    ko.applyBindings(vm);
-    vm.loadGenres();
 
-    $(".genre-menu").on("click", ".genre-menu-item", function (e) {
-      var genre = $(this).text();
-      vm.genre(genre);
-      vm.currentPage(1);
-      vm.loadGenre();
-      e.preventDefault();
-      return true;
+    // Wire up the Error Handling Message
+    amplify.subscribe("ERROR", function (error) {
+      if (vm.isPhoneGap()) {
+        navigator.notification.alert(
+            error, 
+            null,  
+            'Error', 
+            'Ok'
+            );
+      } else {
+        $("#errorAlert").show();
+        $("#errorText").text(error);
+      }
+    });
+
+    // Detect the internet connection
+    var canProceed = true;
+    if (vm.isPhoneGap()) {
+      if (navigator.network.connection) { // Version < 2.2
+        if (navigator.network.connection == Connection.NONE) {
+          amplify.publish("ERROR", "No Network Connection found. Please reconnect and run the application again.");
+          canProceed = false;
+        }
+      } else if (navigator.connection) {   // Version 2.2
+        if (navigator.connection == Connection.NONE) {
+          amplify.publish("ERROR", "No Network Connection found. Please reconnect and run the application again.");
+          canProceed = false;
+        }
+      }
+    }
+
+    if (canProceed) {
+      ko.applyBindings(vm);
+      vm.loadGenres();
+    }
+
+    // Menu Wiring
+    $("#genre-select").on("change", function () {
+      if (this.selectedIndex != 0) {
+        var genre = $(this).val();
+        vm.genre(genre);
+        vm.currentPage(1);
+        vm.loadGenre();
+      }
     });
 
     $("#nextButton").on("click", function (e) {
@@ -50,12 +85,6 @@
     });
   };
 
-  main.showError = function (error) {
-    $("#errorAlert").show();
-    $("#errorText").text(error);
-  };
-
-
   var router = $.sammy("#main", function () {
 
     var routes = [
@@ -88,9 +117,27 @@
     });
   });
 
-  $(document).ready(function () {
-    router.run("#/");
-    main.initialize();
-  });
+  if (window.cordova) {
+    // We're in phonegap so set some basics
+
+    app.rootUrl = "http://xboxgamesapi.azurewebsites.net/";
+
+    // Add flag for use in app
+    vm.isPhoneGap(true);
+    vm.phoneGapInfo(window.device);
+
+    // handle the startup differently
+    document.addEventListener("deviceready", function () {
+      router.run("#/");
+      main.initialize();
+    });
+  } else {
+
+    // We're in the browser...
+    $(document).ready(function () {
+      router.run("#/");
+      main.initialize();
+    });
+  }
 
 }(window.main = window.main || {}, jQuery));

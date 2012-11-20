@@ -161,6 +161,9 @@
     <Content Include="Site\apple-touch-icon-72x72-precomposed.png" />
     <Content Include="Site\apple-touch-icon-precomposed.png" />
     <Content Include="Site\apple-touch-icon.png" />
+    <Content Include="Site\config.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Site\crossdomain.xml" />
     <Content Include="Site\css\bootstrap-responsive.css" />
     <Content Include="Site\css\bootstrap-responsive.min.css" />
@@ -231,6 +234,22 @@
     <Content Include="Site\humans.txt" />
     <Content Include="Site\img\glyphicons-halflings-white.png" />
     <Content Include="Site\img\glyphicons-halflings.png" />
+    <Content Include="Site\img\icons\android\logo_36.png" />
+    <Content Include="Site\img\icons\android\logo_48.png" />
+    <Content Include="Site\img\icons\android\logo_72.png" />
+    <Content Include="Site\img\icons\android\logo_96.png" />
+    <Content Include="Site\img\icons\ios\logo_114.png" />
+    <Content Include="Site\img\icons\ios\logo_57.png" />
+    <Content Include="Site\img\icons\ios\logo_72.png" />
+    <Content Include="Site\img\icons\win8\logo_50.png" />
+    <Content Include="Site\logo.png" />
+    <Content Include="Site\img\icons\win8\logo.png" />
+    <Content Include="Site\img\icons\win8\small_logo.png" />
+    <Content Include="Site\img\icons\win8\splashscreen.png" />
+    <Content Include="Site\img\icons\win8\wide_logo.png" />
+    <Content Include="Site\img\icons\wp8\logo.png" />
+    <Content Include="Site\img\icons\wp8\splashscreen.jpg" />
+    <Content Include="Site\img\icons\wp8\tile.png" />
     <Content Include="Site\index.html" />
     <Content Include="Site\js\app.js" />
     <Content Include="Site\js\vm.js" />

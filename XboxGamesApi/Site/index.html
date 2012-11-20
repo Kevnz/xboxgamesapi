@@ -42,15 +42,39 @@
   </div>
   <div class="container main-page" id="main">
     <div class="view hide" id="home-page">
-      <div class="well">
-        <h3>You can get started by browsing for your favorite Xbox games now!</h3>
-        <div class="dropdown">
-          <a class="dropdown-toggle btn btn-primary" data-toggle="dropdown" href="#">Pick Genre...<b class="caret"></b></a>
-          <ul class="dropdown-menu genre-menu" role="menu" aria-labelledby="dropdownMenu" data-bind="foreach: genres">
-            <li><a tabindex="-1" class="genre-menu-item" data-bind="{text: $data, attr: { href: $data }}"></a></li>
-          </ul>
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="brand pull-left">Genre:</div>
+          <form class="navbar-form">
+            <select id="genre-select">
+              <option>Choose one...</option>
+              <!-- ko foreach: genres -->
+              <option data-bind="{text: $data}"></option>
+              <!-- /ko -->
+            </select>
+            <div class="pagination result-pager" data-bind="visible: totalPages() > 1">
+              <ul>
+                <li data-bind="css: { disabled: currentPage() == 1 }"><a href="first" id="firstButton">&lt;&lt;</a></li>
+                <li data-bind="css: { disabled: currentPage() == 1 }"><a href="prev" id="prevButton">&lt;</a></li>
+                <li class="disabled"><span data-bind="text: currentPage() + ' of ' + totalPages()"></span></li>
+                <li data-bind="css: { disabled: currentPage() >= totalPages() }"><a id="nextButton" href="next">&gt;</a></li>
+                <li data-bind="css: { disabled: currentPage() >= totalPages() }"><a href="last" id="lastButton">&gt;&gt;</a></li>
+              </ul>
+            </div>
+          </form>
         </div>
       </div>
+
+      <!--<div class="well well-small">
+        <h3 class="hidden-phone hidden-tablet">You can get started by browsing for your favorite Xbox games now!</h3>
+        <h5 class="visible-phone visible-tablet">You can get started by browsing for your favorite Xbox games now!</h5>
+        <div>-->
+      <!--<a class="dropdown-toggle btn btn-primary" data-toggle="dropdown" href="#">Pick Genre...<b class="caret"></b></a>
+          <ul class="dropdown-menu genre-menu" role="menu" aria-labelledby="dropdownMenu" data-bind="foreach: genres">
+            <li><a tabindex="-1" class="genre-menu-item" data-bind="{text: $data, attr: { href: $data }}"></a></li>
+          </ul>-->
+      <!--        </div>
+      </div>-->
       <div class="alert alert-error hide" id="errorAlert">
         <button type="button" class="close" data-dismiss="alert">×</button>
         <div>An error occurred: <i><span id="errorText"></span></i></div>
@@ -62,15 +86,6 @@
       </div>
       <!-- Results -->
       <div data-bind="visible: genre().length > 0">
-        <div class="pagination">
-          <ul data-bind="visible: totalPages() > 1" class="pull-right">
-            <li data-bind="css: { disabled: currentPage() == 1 }"><a href="first" id="firstButton">&lt;&lt;</a></li>
-            <li data-bind="css: { disabled: currentPage() == 1 }"><a href="prev" id="prevButton">&lt;</a></li>
-            <li data-bind="css: { disabled: currentPage() >= totalPages() }"><a id="nextButton" href="next">&gt;</a></li>
-            <li data-bind="css: { disabled: currentPage() >= totalPages() }"><a href="last" id="lastButton">&gt;&gt;</a></li>
-          </ul>
-          <h2 data-bind="text: genre"></h2>
-        </div>
         <ul class="thumbnails" data-bind="foreach: games">
           <li class="span4">
             <div class="thumbnail video-game">
@@ -92,8 +107,9 @@
     <div class="view hide" id="about-page">
       <div class="hero-unit">
         <h2>About Xbox Game Browser</h2>
-        <a href="http://wilderminds.com" class="pull-right" target="_blank"><img src="http://wilderminds.com/images/logo_150_bk_trans.png" alt="Wilder Minds LLC" /></a>
-        <p class="lead">An example application built by Shawn Wildermuth of <a href="http://wilderminds.com"  target="_blank">Wilder Minds LLC</a></p>
+        <a href="http://wilderminds.com" class="pull-right" target="_blank">
+          <img src="http://wilderminds.com/images/logo_150_bk_trans.png" alt="Wilder Minds LLC" /></a>
+        <p class="lead">An example application built by Shawn Wildermuth of <a href="http://wilderminds.com" target="_blank">Wilder Minds LLC</a></p>
         <p>
           This application was built using client-side JavaScript 
           and a JSON-powered back-end. This site is an example of 
@@ -123,6 +139,13 @@
           Bootstrap</a> project but originally supplied by 
           <a href="http://glyphicons.com/" target="_blank">GlyphIcons</a>.
         </p>
+        <div data-bind="with: phoneGapInfo">
+          <h5>Device Information</h5>
+          <div>Device: <strong><span data-bind="text: name"></span></strong></div>
+          <div>Cordova Ver.: <strong><span data-bind="text: cordova"></span></strong></div>
+          <div>Platform: <strong><span data-bind="text: platform"></span></strong></div>
+          <div>Version: <strong><span data-bind="text: version"></span></strong></div>
+        </div>
       </div>
     </div>
   </div>
@@ -130,18 +153,18 @@
   <footer class="navbar navbar-inverse navbar-fixed-bottom">
     <div class="navbar-inner">
       <div class="container">
-        <h5>Xbox Game Browser - <a href="http://wilderminds.com"  target="_blank">Wilder Minds LLC</a></h5> <span class="muted" data-bind="visibility: isPhoneGap"><i>Phone Gap Enabled!</i></span>
+        <h5>Xbox Game Browser - <a href="http://wilderminds.com" target="_blank">Wilder Minds LLC</a> <span class="muted pull-right" data-bind="visibility: isPhoneGap"><i>Phone Gap Enabled!</i></span></h5>
       </div>
     </div>
   </footer>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+  <script src="js/vendor/jquery-1.8.2.min.js"></script>
 
   <script src="js/vendor/jquery-ui-1.9.0.min.js"></script>
   <script src="js/vendor/knockout-2.2.0.js"></script>
   <script src="js/vendor/amplify.min.js"></script>
   <script src="js/vendor/sammy-0.7.1.min.js"></script>
   <script src="js/vendor/bootstrap.min.js"></script>
+  <!--  <script src="phonegap.js"></script>-->
   <script src="js/app.js"></script>
   <script src="js/data.js"></script>
   <script src="js/vm.js"></script>

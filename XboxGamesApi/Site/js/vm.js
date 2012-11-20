@@ -8,6 +8,7 @@
   vm.currentPage = ko.observable(1);
   vm.totalPages = ko.observable(0);
   vm.isPhoneGap = ko.observable(false);
+  vm.phoneGapInfo = ko.observable(null);
 
   // Functions
   vm.loadGenres = function () {
@@ -15,7 +16,7 @@
     data.getGenres(function (result, error) {
       vm.isBusy(false);
       if (error) {
-        main.showError("Could not load the Genres");
+        amplify.publish("ERROR", "Could not load the Genres");
       } else {
         $.each(result, function (i, item) {
           vm.genres.push(item);
@@ -31,7 +32,7 @@
     data.getGamesByGenre(vm.genre(), vm.currentPage(), function (result, error) {
       vm.isBusy(false);
       if (error) {
-        main.showError("Could not load the games for " + genre);
+        amplify.publish("ERROR", "Could not load the games for " + genre);
       } else {
         if (result.success) {
           vm.totalPages(result.totalPages);
@@ -41,7 +42,7 @@
             vm.games.push(item);
           });
         } else {
-          main.showError("Failed to load games.  Server error or non-existent genre");
+          amplify.publish("ERROR", "Failed to load games.  Server error or non-existent genre");
         }
       }
     });

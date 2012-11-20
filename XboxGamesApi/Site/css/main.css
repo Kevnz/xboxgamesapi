@@ -60,6 +60,31 @@ footer
   height: 30px;
 }
 
-footer h5{
-  margin-top: 3px;
+  footer h5
+  {
+    margin-top: 3px;
+  }
+
+.pagination
+{
+  margin: 7px 0px 0px 0px;
+}
+
+
+  .pagination ul > .disabled > span, .pagination ul > .disabled > a, .pagination ul > .disabled > a:hover
+  {
+    background-color: #f0f0f0;
+  }
+
+.result-pager
+{
+  float: right;
+}
+
+@media (max-width: 767px)
+{
+  .result-pager
+  {
+    float: none;
+  }
 }
