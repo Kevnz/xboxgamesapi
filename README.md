@@ -1,7 +1,7 @@
 XboxGamesApi Project
 ================================
 
-TL;DL;
+TL;DR
 --------------------------------
 ASP.NET MVC4 Example of a Single Page App to share source with PhoneGap Apps.
 
